@@ -23,11 +23,9 @@ int main() {
         int b = nursik.front(); nursik.pop();
 
         if ((a == 0 && b == 9) || (a > b && !(a == 9 && b == 0))) {
-            // Побеждает Борис
             boris.push(a);
             boris.push(b);
         } else {
-            // Побеждает Нурсик
             nursik.push(a);
             nursik.push(b);
         }
