@@ -26,6 +26,8 @@ int main(){
                 int a2 = dq.back();
                 res += a1 + a2;
                 cout << res << endl;
+                dq.pop_front();
+                if(!dq.empty()) dq.pop_back();
             }
         }else if (a == '!'){
             break;
