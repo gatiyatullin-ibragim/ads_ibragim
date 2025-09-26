@@ -8,15 +8,15 @@ struct Node {
 };
 
 int main() {
-    int N;
-    cin >> N;
+    int n;
+    cin >> n;
 
     int x;
     cin >> x;
     Node* head = new Node(x);
     Node* curr = head;
 
-    for (int i = 1; i < N; i++) {
+    for (int i = 1; i < n; i++) {
         cin >> x;
         curr->next = new Node(x);
         curr = curr->next;
