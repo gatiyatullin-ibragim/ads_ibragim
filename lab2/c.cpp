@@ -24,10 +24,10 @@ int main() {
 
     curr = head;
     while (curr && curr->next) {
-        Node* del = curr->next;      // нода для удаления
-        curr->next = del->next;      // пропускаем её
-        delete del;                  // освобождаем память
-        curr = curr->next;           // идём дальше
+        Node* del = curr->next;      
+        curr->next = del->next;      
+        delete del;                  
+        curr = curr->next;           
     }
 
     curr = head;
