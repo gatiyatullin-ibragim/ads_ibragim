@@ -33,6 +33,6 @@ int main(){
 
     cout << sorting(s);
 
-
+    
     return 0;   
 }
