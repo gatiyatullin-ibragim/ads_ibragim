@@ -1,75 +1,54 @@
-#include<iostream>
-#include<vector>
-#include<queue>
+#include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    int n,m;
-    cin >> n >> m;
+int n, m, a[1001][1001], cnt = 0, check = 0;
+int d[1001][1001], ans = 0;
 
-    vector<vector<int>> a(m, vector<int>(n));
-    vector<vector<int>> dist(m, vector<int>(n, -1));
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    queue<pair<int,int>> q;
+    queue<pair<int, int>> q;
 
-    int mushrooms = 0;
-    int max_time = 0;
+    cin >> m >> n;
 
-    for(int i=0; i<m; ++i){
-        for(int j=0; j<n; ++j){
+    for (int i = 0; i <= m; i++)
+        for (int j = 0; j <= n; j++)
+            d[i][j] = INT_MAX;
+
+    for (int i = 1; i <= m; i++) {
+        for (int j = 1; j <= n; j++) {
             cin >> a[i][j];
-
-            if(a[i][j] == 2){
-                q.push({i,j});
-                dist[i][j] = 0;
+            if (a[i][j] == 2) {
+                q.push({i, j});
+                d[i][j] = 0;
             }
-            else if(a[i][j] == 1){
-                mushrooms++;
-            }
+            if (a[i][j] == 1) cnt++;
         }
     }
 
-    if(mushrooms == 0){
-        cout << 0;
-        return 0;
-    }
+    int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
 
-    if(q.empty()){
-        cout << -1;
-        return 0;
-    }
-
-    int dx[4] = {1, -1, 0, 0};
-    int dy[4] = {0, 0, 1, -1};
-
-    while(!q.empty()){
-        auto [x,y] = q.front();
+    while (!q.empty()) {
+        auto p = q.front();
         q.pop();
 
-        for(int k=0; k<4; ++k){
-            int nx = x + dx[k];
-            int ny = y + dy[k];
+        for (auto &dir : dirs) {
+            int nx = p.first + dir[0];
+            int ny = p.second + dir[1];
 
-            if(nx < 0 || nx >= m || ny < 0 || ny >= n){
-                continue;
-            }
-
-            if(a[nx][ny] == 1 && dist[nx][ny] == -1){
-                dist[nx][ny] = dist[x][y] + 1;
-                max_time = max(max_time, dist[nx][ny]);
-                mushrooms--;
-
+            if (nx >= 1 && nx <= m && ny >= 1 && ny <= n && a[nx][ny] == 1) {
                 a[nx][ny] = 2;
-                q.push({nx,ny});
+                d[nx][ny] = d[p.first][p.second] + 1;
+                ans = max(ans, d[nx][ny]);
+                check++;
+                q.push({nx, ny});
             }
         }
     }
 
-    if(mushrooms > 0){
-        cout << -1 << endl;
-    } else {
-        cout << max_time << endl;
-    }
+    if (check == cnt) cout << ans;
+    else cout << -1;
 
     return 0;
 }
